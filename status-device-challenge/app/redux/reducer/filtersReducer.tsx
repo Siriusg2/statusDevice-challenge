@@ -19,7 +19,7 @@ const filtersReducer = (state = initialState, action: any) => {
     case 'TOGGLE_SOS':
       return { ...state, sos: !state.sos };
     case 'SET_WIFI':
-      return { ...state, wifi: action.payload };
+      return { ...state, wifi: !state.wifi };
     case 'SET_SEARCH':
       return { ...state, search: action.payload };
     default:
