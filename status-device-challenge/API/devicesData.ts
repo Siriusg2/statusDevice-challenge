@@ -1,4 +1,4 @@
-export interface Device {
+interface Device {
   id: number;
   name: string;
   connected: boolean;
@@ -124,3 +124,5 @@ const devicesData: Device[] = [
 
 
 const getDevices = () => devicesData;
+
+export default getDevices
