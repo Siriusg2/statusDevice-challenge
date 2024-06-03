@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import getDevices from '@/API/devicesData';
 import { Device } from '@/interfaces/interface';
 
@@ -42,9 +42,6 @@ const Table = () => {
           ))}
         </tbody>
       </table>
-      {/* <div className="mt-4 text-gray-400">
-        Showing {devices.length} to {devices.length} of {devices.length} Entries
-      </div> */}
     </div>
   );
 };
