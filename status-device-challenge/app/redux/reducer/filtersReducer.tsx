@@ -1,10 +1,12 @@
-import { Device } from "@/interfaces/interface";
+import { Device } from '@/interfaces/interface';
 
 export interface FiltersState {
   sos: boolean | null;
   wifi: boolean | null;
   search: string;
   filteredDevices: Device[];
+  currentPage: number;
+  devicesPerPage: number;
 }
 
 const initialState: FiltersState = {
@@ -12,6 +14,8 @@ const initialState: FiltersState = {
   wifi: null,
   search: '',
   filteredDevices: [],
+  currentPage: 1,
+  devicesPerPage: 5,
 };
 
 const filtersReducer = (state = initialState, action: any): FiltersState => {
@@ -27,11 +31,8 @@ const filtersReducer = (state = initialState, action: any): FiltersState => {
       const { devicesData } = action.payload;
       
       const filteredDevices = devicesData.filter((device: Device) => {
-      
         if (sos !== null && device.isSos !== sos) return false;
-
         if (wifi !== null && device.isWifi !== wifi) return false;
-      
         if (
           search &&
           !(
@@ -44,8 +45,11 @@ const filtersReducer = (state = initialState, action: any): FiltersState => {
         return true;
       });
 
-      return { ...state, filteredDevices };
+      return { ...state, filteredDevices, currentPage: 1 };  // Reset to the first page when filters are applied
       
+    case 'SET_CURRENT_PAGE':
+      return { ...state, currentPage: action.payload };
+
     default:
       return state;
   }

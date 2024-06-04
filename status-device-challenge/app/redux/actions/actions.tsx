@@ -1,12 +1,10 @@
-// actions.ts
-
 import {
-  SetSelectionAction,
   ToggleSOSAction,
   SetWifiAction,
   SetSearchAction,
   ApplyFiltersAction,
   Device,
+  SetCurrentPageAction,
 } from '../../../interfaces/interface';
 
 export const toggleSOS = (value: boolean | null): ToggleSOSAction => ({
@@ -27,4 +25,9 @@ export const setSearch = (search: string): SetSearchAction => ({
 export const applyFilters = (devicesData: Device[]): ApplyFiltersAction => ({
   type: 'APPLY_FILTERS',
   payload: devicesData,
+});
+
+export const setCurrentPage = (page: number): SetCurrentPageAction => ({
+  type: 'SET_CURRENT_PAGE',
+  payload: page,
 });

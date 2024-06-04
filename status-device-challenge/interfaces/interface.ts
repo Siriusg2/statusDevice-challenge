@@ -27,5 +27,10 @@ export interface SetSearchAction {
 
 export interface ApplyFiltersAction {
   type: 'APPLY_FILTERS';
-  payload: Device[]; // Los dispositivos filtrados que se aplicarán al estado
+  payload: Device[];
+}
+
+export interface SetCurrentPageAction {
+  type: 'SET_CURRENT_PAGE';
+  payload: number;
 }

@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import getDevices from '@/API/devicesData';
 import { Device } from '@/interfaces/interface';
 import { useDispatch, useSelector } from 'react-redux';
+import ButtonPaged from './ButtonPaged';
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,8 @@ const Table = () => {
   const selectedWifi = useSelector((state: { filters: { wifi: boolean | null } }) => state.filters.wifi);
   const selectedSearch = useSelector((state: { filters: { search: string } }) => state.filters.search);
   const filteredDevices = useSelector((state: { filters: { filteredDevices: Device[] } }) => state.filters.filteredDevices);
+  const currentPage = useSelector((state: { filters: { currentPage: number } }) => state.filters.currentPage);
+  const devicesPerPage = useSelector((state: { filters: { devicesPerPage: number } }) => state.filters.devicesPerPage);
 
   useEffect(() => {
     applyFilters();
@@ -20,6 +23,10 @@ const Table = () => {
     const devicesData = getDevices();
     dispatch({ type: 'APPLY_FILTERS', payload: { devicesData } });
   };
+
+  const indexOfLastDevice = currentPage * devicesPerPage;
+  const indexOfFirstDevice = indexOfLastDevice - devicesPerPage;
+  const currentDevices = filteredDevices.slice(indexOfFirstDevice, indexOfLastDevice);
 
   return (
     <div className="overflow-x-auto p-4 bg-gray-900 rounded-lg shadow-lg">
@@ -37,7 +44,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredDevices.map((device) => (
+          {currentDevices.map((device) => (
             <tr key={device.id} className="hover:bg-gray-700">
               <td className="py-2 px-4 border-b border-gray-700 text-center">{device.id}</td>
               <td className="py-2 px-4 border-b border-gray-700 text-center">{device.name}</td>
@@ -51,6 +58,7 @@ const Table = () => {
           ))}
         </tbody>
       </table>
+      <ButtonPaged totalDevices={filteredDevices.length} devicesPerPage={devicesPerPage} />
     </div>
   );
 };
