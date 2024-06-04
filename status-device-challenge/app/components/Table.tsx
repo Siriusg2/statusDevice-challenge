@@ -6,6 +6,9 @@ import { Device } from '@/interfaces/interface';
 import { useDispatch, useSelector } from 'react-redux';
 import ButtonPaged from './ButtonPaged';
 import ErrorTable from './ErrorTable';
+import { FaWifi } from "react-icons/fa";
+import { CiWifiOff } from "react-icons/ci";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -30,12 +33,12 @@ const Table = () => {
   const currentDevices = filteredDevices.slice(indexOfFirstDevice, indexOfLastDevice);
 
   return (
-    <div className="flex flex-col justify-between h-96 overflow-x-auto p-4 bg-gray-900 rounded-lg shadow-lg">
+    <div className="flex flex-col justify-between min-h-96 overflow-x-auto p-4 bg-gray-900 rounded-lg shadow-lg">
       {currentDevices.length === 0 ? (
         <ErrorTable />
       ) : (
-        <div className="flex-1 overflow-y-auto">
-          <table className="min-w-full bg-gray-800 text-gray-200 rounded-lg overflow-hidden mt-8">
+        <div className="flex-1 overflow-y-auto w-full min-w-6xl max-w-6xl mx-auto">
+          <table className="w-full bg-gray-800 text-gray-200 rounded-lg overflow-hidden mt-8">
             <thead>
               <tr>
                 <th className="py-2 px-4 border-b border-gray-700 text-center">ID</th>
@@ -43,9 +46,9 @@ const Table = () => {
                 <th className="py-2 px-4 border-b border-gray-700 text-center">Batería</th>
                 <th className="py-2 px-4 border-b border-gray-700 text-center">Estado</th>
                 <th className="py-2 px-4 border-b border-gray-700 text-center">SOS</th>
-                <th className="py-2 px-4 border-b border-gray-700 text-center">WiFi</th>
+                <th className="py-2 px-4 border-b border-gray-700 text-center"><FaWifi className='mx-auto'/></th>
                 <th className="py-2 px-4 border-b border-gray-700 text-center">Propietario</th>
-                <th className="py-2 px-4 border-b border-gray-700 text-center">Contactos</th>
+                <th className="py-2 px-2 border-b border-gray-700 text-center"><FaWhatsapp className='mx-auto'/></th>
               </tr>
             </thead>
             <tbody>
@@ -54,11 +57,15 @@ const Table = () => {
                   <td className="py-2 px-4 border-b border-gray-700 text-center">{device.id}</td>
                   <td className="py-2 px-4 border-b border-gray-700 text-center">{device.name}</td>
                   <td className="py-2 px-4 border-b border-gray-700 text-center">{device.battery}%</td>
-                  <td className="py-2 px-4 border-b border-gray-700 text-center">{device.connected ? 'Conectado' : 'Desconectado'}</td>
-                  <td className="py-2 px-4 border-b border-gray-700 text-center">{device.isSos ? 'Activado' : 'Desactivado'}</td>
-                  <td className="py-2 px-4 border-b border-gray-700 text-center">{device.isWifi ? 'Sí' : 'No'}</td>
+                  <td className="py-2 px-4 border-b border-gray-700 text-center">
+                    <div className={`rounded-full h-4 w-4 flex items-center justify-center mx-auto ${device.connected ? 'bg-green-500' : 'bg-red-500'}`} />
+                  </td>
+                  <td className="py-2 px-4 border-b border-gray-700 text-center">
+                    <div className={`rounded-full h-4 w-4 flex items-center justify-center mx-auto ${device.isSos ? 'bg-green-500' : 'bg-red-500'}`}/>
+                  </td>
+                  <td className="py-2 px-4 border-b border-gray-700 text-center">{device.isWifi ? <FaWifi className='mx-auto'/> : <CiWifiOff className='mx-auto'/>}</td>
                   <td className="py-2 px-4 border-b border-gray-700 text-center">{device.owner}</td>
-                  <td className="py-2 px-4 border-b border-gray-700 text-center">{device.contacts.join(', ')}</td>
+                  <td className="py-2 px-2 border-b border-gray-700 text-center">{device.contacts.join(', ')}</td>
                 </tr>
               ))}
             </tbody>
