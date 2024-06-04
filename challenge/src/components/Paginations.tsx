@@ -1,40 +1,46 @@
+import React, { useState } from "react";
+import { PaginationProps } from "@/interfaces/interface";
+import {
+  MdOutlineKeyboardDoubleArrowLeft,
+  MdOutlineKeyboardDoubleArrowRight,
+} from "react-icons/md";
 
+const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
 
-import React, { useState } from 'react';
-import { PaginationProps } from '@/interfaces/interface'; 
-import {MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight} from "react-icons/md"
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    }
+  };
 
-
-const Pagination: React.FC<PaginationProps> = ({ devices, itemsPerPage }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentDevices = devices.slice(startIndex, endIndex);
-  console.log(currentDevices)
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
+    }
+  };
 
   return (
-    <div className=' m-4 justify-center  items-center text-center bg-red-500'>
-      {/* Renderiza los dispositivos */}
-      {currentDevices.map((device) => (
-        <div key={device.id}>
-          {device.name} (Owner: {device.owner})
-        </div>
-      ))}
-
-      {/* Botones de paginación */}
+    <div className="flex justify-center items-center space-x-2">
       <button
-        onClick={() => setCurrentPage(currentPage - 1)}
+        onClick={handlePrevious}
         disabled={currentPage === 1}
+        className="text-gray-900"
       >
-        <MdOutlineKeyboardDoubleArrowLeft className='text-gray-900 size-10'/>
+        <MdOutlineKeyboardDoubleArrowLeft size={24} />
       </button>
-      <span className='bg-white rounded-full w-2 h-2 text-gray-950 p-2'>10</span>
+      <span className="bg-white rounded-full w-10 h-10 flex justify-center items-center text-gray-950 p-2">
+        {currentPage}
+      </span>
       <button
-        onClick={() => setCurrentPage(currentPage + 1)}
-        disabled={endIndex >= devices.length}
+        onClick={handleNext}
+        disabled={currentPage === totalPages}
+        className="text-gray-900"
       >
-        <MdOutlineKeyboardDoubleArrowRight className='text-gray-900 size-10'/>
+        <MdOutlineKeyboardDoubleArrowRight size={24} />
       </button>
     </div>
   );

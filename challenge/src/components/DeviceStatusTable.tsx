@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import getDevices from "../seed/devicesData";
 import { Device } from "@/interfaces/interface";
 import { PiWifiSlash } from "react-icons/pi";
@@ -33,17 +33,26 @@ const DeviceStatus: React.FC = () => {
 
   const filteredDevices = devices.filter((device: Device) => {
     const matchesId = selectedId ? device.id === selectedId : true;
-    const matchesSearchTerm = searchTerm
-      ? device.name.toLowerCase().includes(searchTerm) ||
+    const matchesSearchTerm =
+      searchTerm &&
+      (device.name.toLowerCase().includes(searchTerm) ||
         device.owner.toLowerCase().includes(searchTerm) ||
-        device.id.toString().includes(searchTerm)
-      : true;
-    return matchesId && matchesSearchTerm;
+        device.id.toString().includes(searchTerm));
+    return matchesId && (matchesSearchTerm || searchTerm === "");
   });
 
-  // const filteredDevices = selectedId
-  //   ? devicesData.filter((device) => device.id === selectedId)
-  //   : devicesData;
+  // Paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentDevices = filteredDevices.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(filteredDevices.length / itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="p-4 m-4 bg-gray-700 text-white rounded-md shadow-md">
@@ -61,7 +70,6 @@ const DeviceStatus: React.FC = () => {
             </option>
           ))}
         </select>
-        {/* Otros filtros aquí */}
 
         <select
           id="device-select"
@@ -110,8 +118,7 @@ const DeviceStatus: React.FC = () => {
           </thead>
 
           <tbody>
-            <hr />
-            {filteredDevices.map((device: Device) => (
+            {currentDevices.map((device: Device) => (
               <tr
                 key={device.id}
                 className="bg-gray-700  border-b border-gray-700"
@@ -145,19 +152,44 @@ const DeviceStatus: React.FC = () => {
                 </td>
                 <td className="px-4 py-2">{device.owner}</td>
                 <td className="px-8 py-2 flex items-center">
-                  {device.contacts.map((contact) => (
-                    <a key={contact} href={`tel:${contact}`} className="mr-2">
-                      <FaWhatsapp className="text-yellow-500" />
-                    </a>
-                  ))}
+                  {device.contacts.length > 0 && (
+                    <>
+                      <a
+                        key={device.contacts[0]}
+                        href={`tel:${device.contacts[0]}`}
+                        className="mr-2"
+                      >
+                        <FaWhatsapp className="text-yellow-500" />
+                      </a>
+                      {device.contacts.length > 1 && (
+                        <a
+                          key={device.contacts[1]}
+                          href={`tel:${device.contacts[1]}`}
+                          className="mr-2"
+                        >
+                          <FaWhatsapp className="text-yellow-500" />
+                        </a>
+                      )}
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="bg-gray-700 flex justify-around text-center content-center items-center  ">
-          <p>Showing 1 To 1 Of 1 Entrios</p>
-          <Pagination devices={[]} itemsPerPage={0} />
+        <div className="bg-gray-700 flex justify-between text-white p-4">
+          <div>
+            <p>
+              Mostrando {startIndex + 1} a{" "}
+              {Math.min(endIndex, filteredDevices.length)} de{" "}
+              {filteredDevices.length} entradas
+            </p>
+          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       </div>
     </div>

@@ -9,7 +9,6 @@ const Home: React.FC = () => {
           Tabla de Estado de Dispositivos
         </h1>
         <DeviceStatus />
-        {/* <DeviceStatusTable/> */}
       </div>
     </main>
   );
