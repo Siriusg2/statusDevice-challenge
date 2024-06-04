@@ -30,12 +30,12 @@ const Table = () => {
   const currentDevices = filteredDevices.slice(indexOfFirstDevice, indexOfLastDevice);
 
   return (
-    <div className="overflow-x-auto p-4 bg-gray-900 rounded-lg shadow-lg">
+    <div className="flex flex-col justify-between h-96 overflow-x-auto p-4 bg-gray-900 rounded-lg shadow-lg">
       {currentDevices.length === 0 ? (
         <ErrorTable />
       ) : (
-        <>
-          <table className="min-w-full bg-gray-800 text-gray-200 rounded-lg overflow-hidden">
+        <div className="flex-1 overflow-y-auto">
+          <table className="min-w-full bg-gray-800 text-gray-200 rounded-lg overflow-hidden mt-8">
             <thead>
               <tr>
                 <th className="py-2 px-4 border-b border-gray-700 text-center">ID</th>
@@ -63,9 +63,9 @@ const Table = () => {
               ))}
             </tbody>
           </table>
-          <ButtonPaged totalDevices={filteredDevices.length} devicesPerPage={devicesPerPage} />
-        </>
+        </div>
       )}
+      <ButtonPaged totalDevices={filteredDevices.length} devicesPerPage={devicesPerPage} />
     </div>
   );
 };
