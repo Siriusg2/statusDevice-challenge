@@ -3,14 +3,23 @@
 import { useEffect, useState } from 'react';
 import getDevices from '@/API/devicesData';
 import { Device } from '@/interfaces/interface';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Table = () => {
-  const [devices, setDevices] = useState<Device[]>([]);
+  const dispatch = useDispatch();
+  const selectedSOS = useSelector((state: { filters: { sos: boolean | null } }) => state.filters.sos);
+  const selectedWifi = useSelector((state: { filters: { wifi: boolean | null } }) => state.filters.wifi);
+  const selectedSearch = useSelector((state: { filters: { search: string } }) => state.filters.search);
+  const filteredDevices = useSelector((state: { filters: { filteredDevices: Device[] } }) => state.filters.filteredDevices);
 
   useEffect(() => {
+    applyFilters();
+  }, [selectedSOS, selectedWifi, selectedSearch]);
+
+  const applyFilters = () => {
     const devicesData = getDevices();
-    setDevices(devicesData);
-  }, []);
+    dispatch({ type: 'APPLY_FILTERS', payload: { devicesData } });
+  };
 
   return (
     <div className="overflow-x-auto p-4 bg-gray-900 rounded-lg shadow-lg">
@@ -28,7 +37,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {devices.map((device) => (
+          {filteredDevices.map((device) => (
             <tr key={device.id} className="hover:bg-gray-700">
               <td className="py-2 px-4 border-b border-gray-700 text-center">{device.id}</td>
               <td className="py-2 px-4 border-b border-gray-700 text-center">{device.name}</td>

@@ -8,3 +8,28 @@ export interface Device {
   owner: string;
   contacts: string[];
 }
+
+export interface SetSelectionAction {
+  type: 'SET_SELECTION';
+  payload: string;
+}
+export interface ToggleSOSAction {
+  type: 'TOGGLE_SOS';
+  payload: boolean | null;
+}
+
+export interface SetWifiAction {
+  type: 'SET_WIFI';
+  payload: boolean | null;
+}
+
+
+export interface SetSearchAction {
+  type: 'SET_SEARCH';
+  payload: string;
+}
+
+export interface ApplyFiltersAction {
+  type: 'APPLY_FILTERS';
+  payload: Device[]; // Los dispositivos filtrados que se aplicarán al estado
+}
