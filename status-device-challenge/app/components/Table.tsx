@@ -9,6 +9,7 @@ import ErrorTable from './ErrorTable';
 import { FaWifi } from "react-icons/fa";
 import { CiWifiOff } from "react-icons/ci";
 import { FaWhatsapp } from "react-icons/fa";
+import { CiBatteryFull } from "react-icons/ci";
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const Table = () => {
               <tr>
                 <th className="py-2 px-4 border-b border-gray-700 text-center">ID</th>
                 <th className="py-2 px-4 border-b border-gray-700 text-center">Nombre</th>
-                <th className="py-2 px-4 border-b border-gray-700 text-center">Batería</th>
+                <th className="py-2 px-4 border-b border-gray-700 text-center"><CiBatteryFull className='mx-auto'/></th>
                 <th className="py-2 px-4 border-b border-gray-700 text-center">Estado</th>
                 <th className="py-2 px-4 border-b border-gray-700 text-center">SOS</th>
                 <th className="py-2 px-4 border-b border-gray-700 text-center"><FaWifi className='mx-auto'/></th>
@@ -56,7 +57,14 @@ const Table = () => {
                 <tr key={device.id} className="hover:bg-gray-700">
                   <td className="py-2 px-4 border-b border-gray-700 text-center">{device.id}</td>
                   <td className="py-2 px-4 border-b border-gray-700 text-center">{device.name}</td>
-                  <td className="py-2 px-4 border-b border-gray-700 text-center">{device.battery}%</td>
+                  <td className={`py-2 px-4 border-b border-gray-700 text-center ${
+                    device.battery > 75 ? 'text-green-500' :
+                    device.battery > 50 ? 'text-yellow-500' :
+                    device.battery > 25 ? 'text-orange-500' :
+                    'text-red-500'
+                  }`}>
+                    {device.battery}%
+                  </td>
                   <td className="py-2 px-4 border-b border-gray-700 text-center">
                     <div className={`rounded-full h-4 w-4 flex items-center justify-center mx-auto ${device.connected ? 'bg-green-500' : 'bg-red-500'}`} />
                   </td>

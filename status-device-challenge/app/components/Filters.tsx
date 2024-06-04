@@ -2,6 +2,7 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch, setWifi, toggleSOS } from '../redux/actions/actions';
+import { FaWifi } from "react-icons/fa";
 
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const Filters: React.FC = () => {
         </div>
 
         <div className="flex items-center">
-          <label htmlFor="wifi-select" className="mr-2 text-gray-200">WiFi:</label>
+          <label htmlFor="wifi-select" className="mr-2 text-gray-200"><FaWifi/></label>
           <select
             id="wifi-select"
             value={selectedWifi === null ? 'null' : selectedWifi ? 'si' : 'no'}
@@ -68,7 +69,6 @@ const Filters: React.FC = () => {
         </div>
 
         <div className="flex items-center">
-          <label htmlFor="search-input" className="mr-2 text-gray-200">Buscar:</label>
           <input
             type="text"
             id="search-input"
