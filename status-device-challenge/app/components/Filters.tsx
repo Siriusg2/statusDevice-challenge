@@ -44,8 +44,8 @@ const Filters: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="flex w-2/3 justify-between items-center p-4 bg-gray-900 rounded-lg shadow-lg max-w-4xl">
-        <div className="flex items-center">
+      <div className="flex flex-col sm:flex-row w-full sm:w-content justify-between items-center p-4 bg-gray-900 rounded-lg shadow-lg max-w-3xl space-y-4 sm:space-y-0 sm:space-x-4">
+        <div className="flex items-center w-full sm:w-auto">
           <label htmlFor="sos-select" className="mr-2 text-gray-200">
             SOS:
           </label>
@@ -59,7 +59,7 @@ const Filters: React.FC = () => {
                   : 'desactivado'
             }
             onChange={handleSOSChange}
-            className="px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
+            className="w-full sm:w-auto px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
           >
             <option value="null">Todos</option>
             <option value="desactivado">Desactivado</option>
@@ -67,7 +67,7 @@ const Filters: React.FC = () => {
           </select>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center w-full sm:w-auto">
           <label htmlFor="wifi-select" className="mr-2 text-gray-200">
             <FaWifi />
           </label>
@@ -75,7 +75,7 @@ const Filters: React.FC = () => {
             id="wifi-select"
             value={selectedWifi === null ? 'null' : selectedWifi ? 'si' : 'no'}
             onChange={handleWifiChange}
-            className="px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
+            className="w-full sm:w-auto px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
           >
             <option value="null">Todos</option>
             <option value="si">Si</option>
@@ -83,14 +83,14 @@ const Filters: React.FC = () => {
           </select>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center w-full sm:w-auto">
           <input
             type="text"
             id="search-input"
             placeholder="Id/Nombre/Propietario"
             value={selectedSearch}
             onChange={handleSearchChange}
-            className="px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
+            className="w-full sm:w-auto px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
           />
         </div>
       </div>
