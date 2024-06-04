@@ -1,5 +1,8 @@
+"use client";
+
 import { useState } from "react";
-import devicesData from "../utils/devicesData";
+import getDevices from "../seed/devicesData";
+import { Device } from "@/interfaces/interface";
 import { PiWifiSlash } from "react-icons/pi";
 import { AiOutlineStop } from "react-icons/ai";
 import { MdCastConnected } from "react-icons/md";
@@ -11,17 +14,7 @@ import {
   FaWhatsapp,
   FaSearch,
 } from "react-icons/fa";
-
-interface Device {
-  id: number;
-  name: string;
-  connected: boolean;
-  battery: number;
-  isSos: boolean;
-  isWifi: boolean;
-  owner: string;
-  contacts: string[];
-}
+import Pagination from "./Paginations";
 
 const DeviceStatus: React.FC = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -36,18 +29,17 @@ const DeviceStatus: React.FC = () => {
     setSearchTerm(event.target.value.toLowerCase());
   };
 
-  
-    const filteredDevices = devicesData.filter((device) => {
-      const matchesId = selectedId ? device.id === selectedId : true;
-      const matchesSearchTerm = searchTerm
-        ? device.name.toLowerCase().includes(searchTerm) ||
-          device.owner.toLowerCase().includes(searchTerm) ||
-          device.id.toString().includes(searchTerm)
-        : true;
-      return matchesId && matchesSearchTerm;
-    });
-    
-  
+  const devices: Device[] = getDevices();
+
+  const filteredDevices = devices.filter((device: Device) => {
+    const matchesId = selectedId ? device.id === selectedId : true;
+    const matchesSearchTerm = searchTerm
+      ? device.name.toLowerCase().includes(searchTerm) ||
+        device.owner.toLowerCase().includes(searchTerm) ||
+        device.id.toString().includes(searchTerm)
+      : true;
+    return matchesId && matchesSearchTerm;
+  });
 
   // const filteredDevices = selectedId
   //   ? devicesData.filter((device) => device.id === selectedId)
@@ -63,7 +55,7 @@ const DeviceStatus: React.FC = () => {
           onChange={handleSelectChange}
         >
           <option value="Seleccionar">Seleccionar</option>
-          {devicesData.map((device) => (
+          {devices.map((device) => (
             <option key={device.id} value={device.id}>
               {device.id}
             </option>
@@ -87,12 +79,9 @@ const DeviceStatus: React.FC = () => {
           <option value="SOS">Modo</option>
         </select>
 
-
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-          
-              <FaSearch className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-            
+            <FaSearch className="w-4 h-4 text-gray-500 dark:text-gray-400" />
           </div>
           <input
             type="search"
@@ -104,11 +93,9 @@ const DeviceStatus: React.FC = () => {
           />
         </div>
       </div>
-      
+
       <div className="overflow-x-auto mt-4 bg-white">
-        
         <table className="min-w-full table-auto">
-          
           <thead>
             <tr className="bg-gray-700">
               <th className="px-4 py-2">ID</th>
@@ -120,11 +107,10 @@ const DeviceStatus: React.FC = () => {
               <th className="px-4 py-2">Propietario</th>
               <th className="px-4 py-2">Contactos</th>
             </tr>
-            
           </thead>
-          
+
           <tbody>
-            <hr/>
+            <hr />
             {filteredDevices.map((device: Device) => (
               <tr
                 key={device.id}
@@ -133,10 +119,10 @@ const DeviceStatus: React.FC = () => {
                 <td className="px-4 py-2">{device.id}</td>
                 <td className="px-4 py-2">{device.name}</td>
                 <td className="px-4 py-2 flex items-center">
-                  {device.battery > 20 ? (
+                  {device.battery > 60 ? (
                     <FaBatteryFull className="mr-2 text-green-600" />
                   ) : (
-                    <FaBatteryEmpty className="mr-2 text-red-800" />
+                    <FaBatteryEmpty className="mr-2 text-orange-500" />
                   )}
                   {device.battery}%
                 </td>
@@ -147,7 +133,7 @@ const DeviceStatus: React.FC = () => {
                   {device.isSos ? (
                     <FaExclamationTriangle className="text-yellow-500" />
                   ) : (
-                    "N/A"
+                    "OK"
                   )}
                 </td>
                 <td className="px-4 py-2">
@@ -169,9 +155,9 @@ const DeviceStatus: React.FC = () => {
             ))}
           </tbody>
         </table>
-        <div className="bg-gray-700 flex">
-          <p>texto</p>
-          <p>1</p>
+        <div className="bg-gray-700 flex justify-around text-center content-center items-center  ">
+          <p>Showing 1 To 1 Of 1 Entrios</p>
+          <Pagination devices={[]} itemsPerPage={0} />
         </div>
       </div>
     </div>
