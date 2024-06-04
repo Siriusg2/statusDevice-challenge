@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import style from './SearchBar.module.css'
-import { getDevices } from '../Data/devicesData.ts';
+import getDevices from '../Data/devicesData.ts';
+import DeviceTable from "../Table/Table.jsx";
 
 const SearchBar = () => {
 
     const devicesData = getDevices();
     const [searchKeyword, setSearchKeyword] = useState('');
-
+    const [foundDevice, setFoundDevice] = useState(null);
 
     const searchHandler = (event) => {
-        event.preventDefault();
-        const searchKeyword = event.target.value.toLowerCase();
-        const filteredDevices = devicesData.filter(device => {
-            return (
-                device.name.toLowerCase().includes(searchKeyword) ||
-                device.id.toString().includes(searchKeyword) ||
-                device.owner.toLowerCase().includes(searchKeyword)
-            );
-        });
-        console.log(filteredDevices);
+        if (event.key === "Enter") {
+            const searchKeyword = event.target.value.toLowerCase();
+            const foundDevice = devicesData.find(device => {
+                return (
+                    device.name.toLowerCase().includes(searchKeyword) ||
+                    device.id.toString().includes(searchKeyword) ||
+                    device.owner.toLowerCase().includes(searchKeyword)
+                );
+            });
+            setFoundDevice(foundDevice);
+        }
     };
 
     const handleKeyPress = (event) => {
@@ -31,18 +33,22 @@ const SearchBar = () => {
     };
 
     return (
-        <nav className={style.search}>
-            <input id="search"
-                type="text"
-                placeholder="ID/Nombre/Propietario"
-                onChange={(event) => {
-                    handleChange(event);
-                    searchHandler(event);
-                }}
-                onKeyPress={(event) => handleKeyPress(event)}
-                className={style.input}
-                value={searchKeyword} />
-        </nav>
+        <div>
+            <nav className={style.search}>
+                <input id="search"
+                    type="text"
+                    placeholder="ID/Nombre/Propietario"
+                    onChange={(event) => {
+                        handleChange(event);
+                        searchHandler(event);
+                    }}
+                    onKeyPress={(event) => handleKeyPress(event)}
+                    className={style.input}
+                    value={searchKeyword} />
+            </nav>
+            {foundDevice?.length > 0 && <DeviceTable device={[foundDevice]} />}
+        </div>
+
     )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Table.module.css'
-import { getDevices } from '../Data/devicesData.ts'
+import getDevices  from '../Data/devicesData.ts'
 import { FaBatteryQuarter, FaBatteryHalf, FaBatteryFull, FaWifi, FaExclamationTriangle, FaCircle } from 'react-icons/fa';
 import { BiNetworkChart } from 'react-icons/bi'
 import { RiWhatsappLine } from 'react-icons/ri'
@@ -9,6 +9,7 @@ import { RiWhatsappLine } from 'react-icons/ri'
 function DeviceTable() {
 
     const devicesData = getDevices();
+
 
     return (
         <div>
