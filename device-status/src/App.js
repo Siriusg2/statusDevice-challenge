@@ -1,16 +1,16 @@
-import './App.css';
+import style from './App.module.css';
 import DeviceTable from './Table/Table';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>  
-        Dispositivos 
-        </h1>
-        <DeviceTable/>
-      </header>
+    <div className={style.AppContainer}>
+      <div className={style.container}>
+        <h1 className={style.title}>Dispositivos</h1>
+        
+        <div ><DeviceTable /></div>
+      </div>
     </div>
+
   );
 }
 

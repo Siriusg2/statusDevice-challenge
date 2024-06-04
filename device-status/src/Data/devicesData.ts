@@ -123,4 +123,4 @@ const devicesData: Device[] = [
 ];
 
 
-const getDevices = () => devicesData;
+export const getDevices = () => devicesData;

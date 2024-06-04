@@ -1,0 +1,28 @@
+.AppContainer {
+  background-color: #333; /* Gris oscuro */
+  margin: 0;
+  padding: 0px;
+  padding-top: 10px;
+  min-height: 100vh; /* Ajustar el alto según sea necesario */
+  display: flex;
+  justify-content: center ; /* Centrar el contenido horizontalmente */
+  align-items: flex-start; /* Centrar el contenido verticalmente */
+}
+
+/* Estilos para el contenedor interno */
+.container {
+  width: 95%;
+  background-color: #5f5e5e; /* Gris claro */
+  padding: 20px; /* Ajustar según sea necesario */
+  border-radius: 8px; /* Agregar bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Agregar sombra */
+  gap: 1em;
+}
+
+/* Estilos para el título */
+.title {
+  color: white;
+  font-size: 15px;
+  margin-bottom: 20px; /* Espacio entre el título y el componente DeviceTable */
+}
+
