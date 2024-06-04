@@ -1,4 +1,4 @@
-import Table from './components/Table';
+import Table from './components/Table/Table';
 import Filters from './components/Filters';
 
 export default function Home() {
