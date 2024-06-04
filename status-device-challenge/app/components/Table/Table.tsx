@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ButtonPaged from '../ButtonPaged';
 import ErrorTable from '../ErrorTable';
 import TableDesktop from './TableDesktop';
+import TableMobile from './TableMobile';
 
 const Table = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,14 @@ const Table = () => {
       {currentDevices.length === 0 ? (
         <ErrorTable />
       ) : (
-        <TableDesktop currentDevices={currentDevices} />
+        <>
+          <div className="hidden md:block">
+            <TableDesktop currentDevices={currentDevices} />
+          </div>
+          <div className="block md:hidden">
+            <TableMobile currentDevices={currentDevices} />
+          </div>
+        </>
       )}
       <ButtonPaged
         totalDevices={filteredDevices.length}
