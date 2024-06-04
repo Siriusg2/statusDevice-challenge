@@ -1,0 +1,19 @@
+.device {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .device th, .device td {
+    padding: 8px;
+  }
+  
+  .device th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #282c34;
+  }
+  
+  .device thead tr {
+    border-bottom: 2px solid #282c34; /* Línea separadora */
+  }
