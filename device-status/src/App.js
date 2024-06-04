@@ -1,12 +1,30 @@
 import style from './App.module.css';
 import DeviceTable from './Table/Table';
+import SearchBar from './SearchBar/SearchBar';
 
 function App() {
   return (
     <div className={style.AppContainer}>
       <div className={style.container}>
         <h1 className={style.title}>Dispositivos</h1>
-        
+        <nav className={style.filter}>
+        <select  /*onChange={event => filterCreated(event)} */>
+                    <option value="all">ID</option>
+                    <option value="created">Creados</option>
+                    <option value="exist">Existentes</option>
+            </select>
+            <select /* onChange={event => handlerHealthScore(event)} */>
+                    <option value="all">SOS</option>
+                    <option value="ascHs">sos</option>
+                    <option value="descHs">OK</option>
+            </select>
+            <select /* onChange={event => handlerName(event)} */>
+                    <option value="all">Modo</option>
+                    <option value="ascName">Conectados</option>
+                    <option value="descName">Desconectados</option>
+            </select>
+            <SearchBar />
+        </nav>
         <div ><DeviceTable /></div>
       </div>
     </div>

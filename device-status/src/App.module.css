@@ -1,28 +1,48 @@
 .AppContainer {
-  background-color: #333; /* Gris oscuro */
+  background-color: #333;
   margin: 0;
   padding: 0px;
   padding-top: 10px;
-  min-height: 100vh; /* Ajustar el alto según sea necesario */
+  min-height: 100vh;
   display: flex;
-  justify-content: center ; /* Centrar el contenido horizontalmente */
-  align-items: flex-start; /* Centrar el contenido verticalmente */
+  justify-content: center;
+  align-items: flex-start;
 }
 
-/* Estilos para el contenedor interno */
+.filter {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: 15px;
+  background-color: #5f5e5e;
+}
+
+.filter select {
+  color: #999898;
+  background-color: #5f5e5e;
+  padding: 5px;
+  border: 1px solid #838181;
+  border-radius: 25px;
+  width: 150px;
+  font-size: 13px;
+}
+
+.filter select option {
+  background-color: #5f5e5e;
+}
+
 .container {
   width: 95%;
-  background-color: #5f5e5e; /* Gris claro */
-  padding: 20px; /* Ajustar según sea necesario */
-  border-radius: 8px; /* Agregar bordes redondeados */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Agregar sombra */
-  gap: 1em;
+  background-color: #5f5e5e;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para el título */
+
 .title {
   color: white;
   font-size: 15px;
-  margin-bottom: 20px; /* Espacio entre el título y el componente DeviceTable */
+  margin-top: 0;
+  margin-bottom: 20px;
 }
-
