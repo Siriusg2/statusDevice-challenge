@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from "react";
-import { Device } from "@/interfaces/interface";
-import { CiBatteryFull, CiWifiOff } from "react-icons/ci";
-import { FaWhatsapp, FaWifi, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { useState } from 'react';
+import { Device } from '@/interfaces/interface';
+import { CiBatteryFull, CiWifiOff } from 'react-icons/ci';
+import { FaWhatsapp, FaWifi, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 interface TableMobileProps {
   currentDevices: Device[];
@@ -14,7 +14,9 @@ const TableMobile: React.FC<TableMobileProps> = ({ currentDevices }) => {
 
   const toggleExpand = (id: number) => {
     setExpandedDeviceIds((prev) =>
-      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
+      prev.includes(id)
+        ? prev.filter((itemId) => itemId !== id)
+        : [...prev, id],
     );
   };
 
@@ -47,10 +49,10 @@ const TableMobile: React.FC<TableMobileProps> = ({ currentDevices }) => {
                       device.battery > 75
                         ? 'text-green-500'
                         : device.battery > 50
-                        ? 'text-yellow-500'
-                        : device.battery > 25
-                        ? 'text-orange-500'
-                        : 'text-red-500'
+                          ? 'text-yellow-500'
+                          : device.battery > 25
+                            ? 'text-orange-500'
+                            : 'text-red-500'
                     }`}
                   >
                     {device.battery}%

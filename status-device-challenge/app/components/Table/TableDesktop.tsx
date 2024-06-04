@@ -1,8 +1,8 @@
 'use client';
 
-import { Device } from "@/interfaces/interface";
-import { CiBatteryFull, CiWifiOff } from "react-icons/ci";
-import { FaWhatsapp, FaWifi } from "react-icons/fa";
+import { Device } from '@/interfaces/interface';
+import { CiBatteryFull, CiWifiOff } from 'react-icons/ci';
+import { FaWhatsapp, FaWifi } from 'react-icons/fa';
 
 interface TableDesktopProps {
   currentDevices: Device[];
@@ -54,10 +54,10 @@ const TableDesktop: React.FC<TableDesktopProps> = ({ currentDevices }) => {
                   device.battery > 75
                     ? 'text-green-500'
                     : device.battery > 50
-                    ? 'text-yellow-500'
-                    : device.battery > 25
-                    ? 'text-orange-500'
-                    : 'text-red-500'
+                      ? 'text-yellow-500'
+                      : device.battery > 25
+                        ? 'text-orange-500'
+                        : 'text-red-500'
                 }`}
               >
                 {device.battery}%
