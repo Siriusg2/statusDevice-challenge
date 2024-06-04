@@ -18,7 +18,7 @@ const devicesData: Device[] = [
     isSos: false,
     isWifi: true,
     owner: "Owner 1",
-    contacts: ["+5555555555", "+5555555555"],
+    contacts: ["+5555555555", "+55555555555"],
   },
   {
     id: 2,

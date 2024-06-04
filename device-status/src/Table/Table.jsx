@@ -35,11 +35,9 @@ function DeviceTable() {
                             <td>{renderSOSIcon(device.isSos)}</td>
                             <td>{renderWiFiIcon(device.isWifi)}</td>
                             <td>{device.owner}</td>
-                            <td>{renderContactIcons(device.contacts)}</td>
+                            <td>{renderContactIcons(device?.contacts)}</td>
                         </tr>
                     ))}
-
-
                 </tbody>
             </table>
         </div>
@@ -74,7 +72,7 @@ function renderWiFiIcon(isWifi) {
 
 function renderContactIcons(contacts) {
     return contacts.map(contact => (
-      <div className="tooltip" key={contact}>
+      <div className="tooltip" key={`${contact}`}>
         <span className="icon">
           <RiWhatsappLine style={{ color: 'white', fontSize: '1.2em' }} />
         </span>
