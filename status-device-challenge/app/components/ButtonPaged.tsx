@@ -3,11 +3,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentPage } from '../redux/actions/actions';
-
-interface ButtonPagedProps {
-  totalDevices: number;
-  devicesPerPage: number;
-}
+import { ButtonPagedProps } from '@/interfaces/interface';
 
 const ButtonPaged: React.FC<ButtonPagedProps> = ({
   totalDevices,

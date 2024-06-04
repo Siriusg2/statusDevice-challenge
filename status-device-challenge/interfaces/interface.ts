@@ -33,3 +33,25 @@ export interface SetCurrentPageAction {
   type: 'SET_CURRENT_PAGE';
   payload: number;
 }
+
+export interface ButtonPagedProps {
+  totalDevices: number;
+  devicesPerPage: number;
+}
+
+export interface TableDesktopProps {
+  currentDevices: Device[];
+}
+
+export interface TableMobileProps {
+  currentDevices: Device[];
+}
+
+export interface FiltersState {
+  sos: boolean | null;
+  wifi: boolean | null;
+  search: string;
+  filteredDevices: Device[];
+  currentPage: number;
+  devicesPerPage: number;
+}

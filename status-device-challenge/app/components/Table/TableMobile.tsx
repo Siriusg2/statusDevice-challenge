@@ -1,13 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Device } from '@/interfaces/interface';
+import { Device, TableMobileProps } from '@/interfaces/interface';
 import { CiBatteryFull, CiWifiOff } from 'react-icons/ci';
 import { FaWhatsapp, FaWifi, FaChevronDown, FaChevronUp } from 'react-icons/fa';
-
-interface TableMobileProps {
-  currentDevices: Device[];
-}
 
 const TableMobile: React.FC<TableMobileProps> = ({ currentDevices }) => {
   const [expandedDeviceIds, setExpandedDeviceIds] = useState<number[]>([]);
@@ -88,7 +84,7 @@ const TableMobile: React.FC<TableMobileProps> = ({ currentDevices }) => {
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-bold">Contactos:</span>
-                  <span>{device.contacts.join(', ')}</span>
+                  <span className='text-xs sm:text-base'>{device.contacts.join(', ')}</span>
                 </div>
               </div>
             )}

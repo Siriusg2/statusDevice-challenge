@@ -1,13 +1,4 @@
-import { Device } from '@/interfaces/interface';
-
-export interface FiltersState {
-  sos: boolean | null;
-  wifi: boolean | null;
-  search: string;
-  filteredDevices: Device[];
-  currentPage: number;
-  devicesPerPage: number;
-}
+import { Device, FiltersState } from '@/interfaces/interface';
 
 const initialState: FiltersState = {
   sos: null,

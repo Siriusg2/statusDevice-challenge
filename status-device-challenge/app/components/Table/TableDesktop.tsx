@@ -1,12 +1,8 @@
 'use client';
 
-import { Device } from '@/interfaces/interface';
+import { Device, TableDesktopProps } from '@/interfaces/interface';
 import { CiBatteryFull, CiWifiOff } from 'react-icons/ci';
 import { FaWhatsapp, FaWifi } from 'react-icons/fa';
-
-interface TableDesktopProps {
-  currentDevices: Device[];
-}
 
 const TableDesktop: React.FC<TableDesktopProps> = ({ currentDevices }) => {
   return (
