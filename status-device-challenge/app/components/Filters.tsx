@@ -1,18 +1,13 @@
 "use client";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearch, setSelection, setWifi, toggleSOS } from '../redux/actions/actions';
+import { setSearch, setWifi, toggleSOS } from '../redux/actions/actions';
 
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
-  const selectedSelection = useSelector((state: { filters: { selection: string } }) => state.filters.selection);
   const selectedSOS = useSelector((state: { filters: { sos: boolean | null } }) => state.filters.sos);
   const selectedWifi = useSelector((state: { filters: { wifi: boolean | null } }) => state.filters.wifi);
   const selectedSearch = useSelector((state: { filters: { search: string } }) => state.filters.search);
-
-  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setSelection(e.target.value));
-  };
 
   const handleSOSChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -43,23 +38,12 @@ const Filters: React.FC = () => {
   return (
     <div className="flex justify-center items-center w-full">
       <div className="flex w-2/3 justify-between items-center p-4 bg-gray-900 rounded-lg shadow-lg max-w-4xl">
+        
         <div className="flex items-center">
-          {/* Dropdown de selección */}
+          <label htmlFor="sos-select" className="mr-2 text-gray-200">SOS:</label>
           <select
-            value={selectedSelection}
-            onChange={handleSelectionChange}
-            className="px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
-          >
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-          </select>
-        </div>
-        <div className="flex items-center">
-          {/* Select de SOS */}
-          <select
-            value={selectedSOS === null ? 'null' : selectedSOS ? 'activado' : 'desactivado'} // Corregido aquí
+            id="sos-select"
+            value={selectedSOS === null ? 'null' : selectedSOS ? 'activado' : 'desactivado'}
             onChange={handleSOSChange}
             className="px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
           >
@@ -68,9 +52,11 @@ const Filters: React.FC = () => {
             <option value="activado">Activado</option>
           </select>
         </div>
+
         <div className="flex items-center">
-          {/* Select de WIFI */}
+          <label htmlFor="wifi-select" className="mr-2 text-gray-200">WiFi:</label>
           <select
+            id="wifi-select"
             value={selectedWifi === null ? 'null' : selectedWifi ? 'si' : 'no'}
             onChange={handleWifiChange}
             className="px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
@@ -80,10 +66,12 @@ const Filters: React.FC = () => {
             <option value="no">No</option>
           </select>
         </div>
+
         <div className="flex items-center">
-          {/* Campo de búsqueda */}
+          <label htmlFor="search-input" className="mr-2 text-gray-200">Buscar:</label>
           <input
             type="text"
+            id="search-input"
             placeholder="Id/Nombre/Propietario"
             value={selectedSearch}
             onChange={handleSearchChange}

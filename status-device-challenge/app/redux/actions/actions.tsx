@@ -9,11 +9,6 @@ import {
   Device,
 } from '../../../interfaces/interface';
 
-export const setSelection = (selection: string): SetSelectionAction => ({
-  type: 'SET_SELECTION',
-  payload: selection,
-});
-
 export const toggleSOS = (value: boolean | null): ToggleSOSAction => ({
   type: 'TOGGLE_SOS',
   payload: value,

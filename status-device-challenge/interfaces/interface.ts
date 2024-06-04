@@ -9,10 +9,6 @@ export interface Device {
   contacts: string[];
 }
 
-export interface SetSelectionAction {
-  type: 'SET_SELECTION';
-  payload: string;
-}
 export interface ToggleSOSAction {
   type: 'TOGGLE_SOS';
   payload: boolean | null;
