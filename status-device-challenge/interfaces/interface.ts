@@ -19,7 +19,6 @@ export interface SetWifiAction {
   payload: boolean | null;
 }
 
-
 export interface SetSearchAction {
   type: 'SET_SEARCH';
   payload: string;

@@ -29,7 +29,7 @@ const filtersReducer = (state = initialState, action: any): FiltersState => {
     case 'APPLY_FILTERS':
       const { sos, wifi, search } = state;
       const { devicesData } = action.payload;
-      
+
       const filteredDevices = devicesData.filter((device: Device) => {
         if (sos !== null && device.isSos !== sos) return false;
         if (wifi !== null && device.isWifi !== wifi) return false;
@@ -40,13 +40,14 @@ const filtersReducer = (state = initialState, action: any): FiltersState => {
             device.name.toLowerCase().includes(search.toLowerCase()) ||
             device.owner.toLowerCase().includes(search.toLowerCase())
           )
-        ) return false;
-      
+        )
+          return false;
+
         return true;
       });
 
-      return { ...state, filteredDevices, currentPage: 1 };  // Reset to the first page when filters are applied
-      
+      return { ...state, filteredDevices, currentPage: 1 }; // Reset to the first page when filters are applied
+
     case 'SET_CURRENT_PAGE':
       return { ...state, currentPage: action.payload };
 

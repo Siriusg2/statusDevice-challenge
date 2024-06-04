@@ -1,14 +1,20 @@
-"use client";
+'use client';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch, setWifi, toggleSOS } from '../redux/actions/actions';
-import { FaWifi } from "react-icons/fa";
+import { FaWifi } from 'react-icons/fa';
 
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
-  const selectedSOS = useSelector((state: { filters: { sos: boolean | null } }) => state.filters.sos);
-  const selectedWifi = useSelector((state: { filters: { wifi: boolean | null } }) => state.filters.wifi);
-  const selectedSearch = useSelector((state: { filters: { search: string } }) => state.filters.search);
+  const selectedSOS = useSelector(
+    (state: { filters: { sos: boolean | null } }) => state.filters.sos,
+  );
+  const selectedWifi = useSelector(
+    (state: { filters: { wifi: boolean | null } }) => state.filters.wifi,
+  );
+  const selectedSearch = useSelector(
+    (state: { filters: { search: string } }) => state.filters.search,
+  );
 
   const handleSOSChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -20,7 +26,7 @@ const Filters: React.FC = () => {
       dispatch(toggleSOS(true));
     }
   };
-  
+
   const handleWifiChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (value === 'null') {
@@ -31,7 +37,7 @@ const Filters: React.FC = () => {
       dispatch(setWifi(true));
     }
   };
-  
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearch(e.target.value));
   };
@@ -39,12 +45,19 @@ const Filters: React.FC = () => {
   return (
     <div className="flex justify-center items-center w-full">
       <div className="flex w-2/3 justify-between items-center p-4 bg-gray-900 rounded-lg shadow-lg max-w-4xl">
-        
         <div className="flex items-center">
-          <label htmlFor="sos-select" className="mr-2 text-gray-200">SOS:</label>
+          <label htmlFor="sos-select" className="mr-2 text-gray-200">
+            SOS:
+          </label>
           <select
             id="sos-select"
-            value={selectedSOS === null ? 'null' : selectedSOS ? 'activado' : 'desactivado'}
+            value={
+              selectedSOS === null
+                ? 'null'
+                : selectedSOS
+                  ? 'activado'
+                  : 'desactivado'
+            }
             onChange={handleSOSChange}
             className="px-4 py-2 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none"
           >
@@ -55,7 +68,9 @@ const Filters: React.FC = () => {
         </div>
 
         <div className="flex items-center">
-          <label htmlFor="wifi-select" className="mr-2 text-gray-200"><FaWifi/></label>
+          <label htmlFor="wifi-select" className="mr-2 text-gray-200">
+            <FaWifi />
+          </label>
           <select
             id="wifi-select"
             value={selectedWifi === null ? 'null' : selectedWifi ? 'si' : 'no'}

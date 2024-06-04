@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,10 +9,15 @@ interface ButtonPagedProps {
   devicesPerPage: number;
 }
 
-const ButtonPaged: React.FC<ButtonPagedProps> = ({ totalDevices, devicesPerPage }) => {
+const ButtonPaged: React.FC<ButtonPagedProps> = ({
+  totalDevices,
+  devicesPerPage,
+}) => {
   const dispatch = useDispatch();
-  const currentPage = useSelector((state: { filters: { currentPage: number } }) => state.filters.currentPage);
-  
+  const currentPage = useSelector(
+    (state: { filters: { currentPage: number } }) => state.filters.currentPage,
+  );
+
   const totalPages = Math.ceil(totalDevices / devicesPerPage);
 
   const handleClick = (pageNumber: number) => {
@@ -38,7 +43,9 @@ const ButtonPaged: React.FC<ButtonPagedProps> = ({ totalDevices, devicesPerPage 
       <button
         onClick={() => handleClick(currentPage + 1)}
         className={`w-8 h-8 flex items-center justify-center rounded-full ${
-          currentPage === totalPages ? 'cursor-not-allowed text-gray-400' : 'text-white'
+          currentPage === totalPages
+            ? 'cursor-not-allowed text-gray-400'
+            : 'text-white'
         }`}
         disabled={currentPage === totalPages}
       >

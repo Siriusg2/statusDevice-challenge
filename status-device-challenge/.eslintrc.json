@@ -1,3 +1,23 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["react", "react-hooks", "prettier"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "react/react-in-jsx-scope": "off", // Next.js no requiere importar React en cada archivo
+    "react/prop-types": "off" // Desactiva las prop-types si usas TypeScript
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }

@@ -1,5 +1,5 @@
-import Table from "./components/Table";
-import Filters from "./components/Filters";
+import Table from './components/Table';
+import Filters from './components/Filters';
 
 export default function Home() {
   return (

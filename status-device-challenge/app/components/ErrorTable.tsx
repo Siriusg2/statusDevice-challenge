@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { TbFaceIdError } from "react-icons/tb";
+import { TbFaceIdError } from 'react-icons/tb';
 
 const ErrorTable = () => {
   return (
