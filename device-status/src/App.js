@@ -1,3 +1,4 @@
+import React from 'react'
 import style from './App.module.css'
 import DeviceTable from './Table/Table'
 import SearchBar from './SearchBar/SearchBar'

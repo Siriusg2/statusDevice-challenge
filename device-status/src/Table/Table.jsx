@@ -17,7 +17,6 @@ function DeviceTable() {
   const dispatch = useDispatch()
   const devicesData = useSelector((state) => state.devices)
 
-  const [ordenamiento, setOrdenamiento] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const devicesPerPage = 5
 
