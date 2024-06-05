@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { PaginationProps } from "@/interfaces/interface";
 import {
   MdOutlineKeyboardDoubleArrowLeft,
@@ -24,7 +24,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex justify-center items-center space-x-2">
+    <div className="flex bg-gray-700 justify-center items-center space-x-2">
       <button
         onClick={handlePrevious}
         disabled={currentPage === 1}
