@@ -1,54 +1,41 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 import style from './SearchBar.module.css'
-import getDevices from '../Data/devicesData.ts';
-import DeviceTable from "../Table/Table.jsx";
+import { searchDevices } from "../redux/actions.js";
+import { useDispatch } from "react-redux";
 
 const SearchBar = () => {
 
-    const devicesData = getDevices();
-    const [searchKeyword, setSearchKeyword] = useState('');
-    const [foundDevice, setFoundDevice] = useState(null);
+    const dispatch = useDispatch();
+    const [found, setFound] = useState("");
 
     const searchHandler = (event) => {
-        if (event.key === "Enter") {
-            const searchKeyword = event.target.value.toLowerCase();
-            const foundDevice = devicesData.find(device => {
-                return (
-                    device.name.toLowerCase().includes(searchKeyword) ||
-                    device.id.toString().includes(searchKeyword) ||
-                    device.owner.toLowerCase().includes(searchKeyword)
-                );
-            });
-            setFoundDevice(foundDevice);
-        }
-    };
+        event.preventDefault()
+        setFound(event.target.value)
+    }
+    const submitHandler = (event) => {
+        event.preventDefault()
+        if (found.length === 0) alert('Debes ingresar un nombre')
+        else {
+            dispatch(searchDevices(found))
+        };
+    }
 
-    const handleKeyPress = (event) => {
-        if (event.key === "Enter") {
-            searchHandler(event);
+    const keyPressHandler = (event) => {
+        if (event.key === 'Enter') {
+            submitHandler(event)
         }
-    };
-    const handleChange = (event) => {
-        setSearchKeyword(event.target.value);
-    };
+    }
 
     return (
-        <div>
-            <nav className={style.search}>
-                <input id="search"
-                    type="text"
-                    placeholder="ID/Nombre/Propietario"
-                    onChange={(event) => {
-                        handleChange(event);
-                        searchHandler(event);
-                    }}
-                    onKeyPress={(event) => handleKeyPress(event)}
-                    className={style.input}
-                    value={searchKeyword} />
-            </nav>
-            {foundDevice?.length > 0 && <DeviceTable device={[foundDevice]} />}
-        </div>
-
+        <nav className={style.search}>
+            <input id="search" 
+            type="text" 
+            placeholder="ID/Nombre/Propietario" 
+            onChange={(event) => { searchHandler(event) }} 
+            className={style.input} 
+            onKeyPress={(event) => { keyPressHandler(event) }}
+            />
+        </nav>
     )
 }
 

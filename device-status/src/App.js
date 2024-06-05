@@ -1,29 +1,43 @@
 import style from './App.module.css';
 import DeviceTable from './Table/Table';
 import SearchBar from './SearchBar/SearchBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterBySos } from './redux/actions';
 
 function App() {
+
+  const dispatch = useDispatch();
+  const devices = useSelector((state) => state.devices)
+
+  const handlerSos = (event) => {
+    event.preventDefault();
+    dispatch(filterBySos(event.target.value))
+  }
+
   return (
     <div className={style.AppContainer}>
       <div className={style.container}>
         <h1 className={style.title}>Dispositivos</h1>
         <nav className={style.filter}>
-        <select  /*onChange={event => filterCreated(event)} */>
-                    <option value="all">ID</option>
-                    <option value="created">Creados</option>
-                    <option value="exist">Existentes</option>
-            </select>
-            <select /* onChange={event => handlerHealthScore(event)} */>
-                    <option value="all">SOS</option>
-                    <option value="ascHs">sos</option>
-                    <option value="descHs">OK</option>
-            </select>
-            <select /* onChange={event => handlerName(event)} */>
-                    <option value="all">Modo</option>
-                    <option value="ascName">Conectados</option>
-                    <option value="descName">Desconectados</option>
-            </select>
-            <SearchBar />
+          <select  /*onChange={event => filterCreated(event)} */>
+            <option value="all">ID</option>{
+              devices?.map((element) => {
+                return <option key={element.id}
+                  value={element.name}>{element.id}</option>
+              })
+            }
+          </select>
+          <select onChange={event => handlerSos(event)}>
+            <option value="all">SOS</option>
+            <option value="true">sos</option>
+            <option value="false">OK</option>
+          </select>
+          <select /* onChange={event => handlerName(event)} */>
+            <option value="all">Modo</option>
+            <option value="ascName">Conectados</option>
+            <option value="descName">Desconectados</option>
+          </select>
+          <SearchBar />
         </nav>
         <div ><DeviceTable /></div>
       </div>

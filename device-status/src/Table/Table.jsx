@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './Table.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { getApiDevices } from '../redux/actions';
@@ -8,14 +8,42 @@ import { RiWhatsappLine } from 'react-icons/ri'
 
 
 function DeviceTable() {
-
     const dispatch = useDispatch();
-    const devicesData = useSelector ((state) => state.devices);
+    const devicesData = useSelector((state) => state.devices);
+
+    const [ordenamiento, setOrdenamiento] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const devicesPerPage = 5;
+
+    // Calcular el número total de páginas
+    const totalPages = Math.ceil(devicesData.length / devicesPerPage);
+
+    // Calcular los índices de los dispositivos a mostrar en la página actual
+    const iLastDevice = currentPage * devicesPerPage;
+    const iFirstDevice = iLastDevice - devicesPerPage;
+    const currentDevices = devicesData.slice(iFirstDevice, iLastDevice);
+
+    const goNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage => currentPage + 1);
+        }
+    };
+
+    const goPrev = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage => currentPage - 1);
+        }
+    };
 
     useEffect(() => {
-        dispatch (getApiDevices())    
+        dispatch(getApiDevices())
+        setCurrentPage(1);
     }, [dispatch])
-       
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [devicesData]);
+
 
     return (
         <div>
@@ -33,7 +61,7 @@ function DeviceTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {devicesData?.map(device => (
+                    {currentDevices?.map(device => (
                         <tr key={device.id} >
                             <td>{device.id}</td>
                             <td>{device.name}</td>
@@ -47,6 +75,10 @@ function DeviceTable() {
                     ))}
                 </tbody>
             </table>
+            <div>
+                <button onClick={goPrev} disabled={currentPage === 1}>Anterior</button>
+                <button onClick={goNext} disabled={currentPage === totalPages}>Siguiente</button>
+            </div>
         </div>
     );
 }
@@ -79,12 +111,12 @@ function renderWiFiIcon(isWifi) {
 
 function renderContactIcons(contacts) {
     return contacts.map(contact => (
-      <div className="tooltip" key={`${contact}`}>
-        <span className="icon">
-          <RiWhatsappLine style={{ color: 'white', fontSize: '1.2em' }} />
-        </span>
-        <span className="tooltip-text">{contact}</span>
-      </div>
+        <div className="tooltip" key={`${contact}`}>
+            <span className="icon">
+                <RiWhatsappLine style={{ color: 'white', fontSize: '1.2em' }} />
+            </span>
+            <span className="tooltip-text">{contact}</span>
+        </div>
     ));
 }
 
