@@ -1,14 +1,14 @@
 .search {
-    background-color: #5e5f5e;
-    padding: 5px;
+  background-color: #5e5f5e;
+  padding: 5px;
 }
 
 .input {
-    color: #a2c7a2;
-    background-color: #5f5e5e;
-    padding: 5px;
-    border: 1px solid #979797;
-    border-radius: 25px;
-    width: 150px;
-    font-size: 13px;
+  color: #a2c7a2;
+  background-color: #5f5e5e;
+  padding: 5px;
+  border: 1px solid #979797;
+  border-radius: 25px;
+  width: 150px;
+  font-size: 13px;
 }

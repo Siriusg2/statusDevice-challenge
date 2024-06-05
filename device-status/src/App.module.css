@@ -39,10 +39,20 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
 .title {
   color: white;
   font-size: 15px;
   margin-top: 0;
   margin-bottom: 20px;
+}
+
+.button {
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 2px 17px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #95989c;
+  border: 1px solid #95989c;
 }
