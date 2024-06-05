@@ -1,14 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import getDevices from "../seed/devicesData";
-import { Device } from "@/interfaces/interface";
 import { PiWifiSlash } from "react-icons/pi";
 import { AiOutlineStop } from "react-icons/ai";
 import { MdCastConnected } from "react-icons/md";
 import {
   FaBatteryFull,
-  FaBatteryEmpty,
+  FaBatteryQuarter,
   FaWifi,
   FaExclamationTriangle,
   FaWhatsapp,
@@ -16,11 +14,26 @@ import {
 } from "react-icons/fa";
 import Pagination from "./Paginations";
 import Loading from "@/components/Loading";
+import { useDeviceStore } from "../store/deviceStore";
 
 const DeviceStatus: React.FC = () => {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const {
+    devices,
+    selectedId,
+    setSelectedId,
+    searchTerm,
+    setSearchTerm,
+    isLoading,
+    toggleLoading,
+  } = useDeviceStore((state) => ({
+    devices: state.devices,
+    selectedId: state.selectedId,
+    setSelectedId: state.setSelectedId,
+    searchTerm: state.searchTerm,
+    setSearchTerm: state.setSearchTerm,
+    isLoading: state.isLoading,
+    toggleLoading: state.toggleLoading,
+  }));
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -33,13 +46,11 @@ const DeviceStatus: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);
+      toggleLoading(false);
     }, 1500);
-  }, []);
+  }, [toggleLoading]);
 
   // Filtrados y Search >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  const devices: Device[] = getDevices();
-
   const filteredDevices = devices.filter((device: Device) => {
     const matchesId = selectedId ? device.id === selectedId : true;
     const matchesSearchTerm =
@@ -49,6 +60,7 @@ const DeviceStatus: React.FC = () => {
         device.id.toString().includes(searchTerm));
     return matchesId && (matchesSearchTerm || searchTerm === "");
   });
+
   if (searchTerm && filteredDevices.length === 0) {
     alert("Datos incorrectos");
   }
@@ -65,6 +77,10 @@ const DeviceStatus: React.FC = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedId]);
 
   return (
     <div className="p-4 m-4 bg-gray-700 text-white rounded-md shadow-md">
@@ -144,7 +160,7 @@ const DeviceStatus: React.FC = () => {
                     {device.battery > 45 ? (
                       <FaBatteryFull className="mr-2 text-green-600" />
                     ) : (
-                      <FaBatteryEmpty className="mr-2 text-orange-500" />
+                      <FaBatteryQuarter className="mr-2 text-orange-500" />
                     )}
                     {device.battery}%
                   </td>
@@ -168,24 +184,9 @@ const DeviceStatus: React.FC = () => {
                   <td className="px-4 py-2">{device.owner}</td>
                   <td className="px-8 py-2 flex items-center">
                     {device.contacts.length > 0 && (
-                      <>
-                        <a
-                          key={device.contacts[0]}
-                          href={`tel:${device.contacts[0]}`}
-                          className="mr-2"
-                        >
-                          <FaWhatsapp className="text-yellow-500" />
-                        </a>
-                        {device.contacts.length > 1 && (
-                          <a
-                            key={device.contacts[1]}
-                            href={`tel:${device.contacts[1]}`}
-                            className="mr-2"
-                          >
-                            <FaWhatsapp className="text-yellow-500" />
-                          </a>
-                        )}
-                      </>
+                      <a href={`tel:${device.contacts[0]}`} className="mr-2">
+                        <FaWhatsapp className="text-yellow-500" />
+                      </a>
                     )}
                   </td>
                 </tr>
